@@ -1,2 +1,1 @@
-# web_app
-project
+# FLASK SIMPLE WEB PROJECT
