@@ -1,1 +1,1 @@
-# FLASK SIMPLE WEB PROJECT
+# web_prilojenie
