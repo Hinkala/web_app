@@ -1,0 +1,12 @@
+h1{
+    font-size: 60px;
+    font-style: italic;
+    color: aqua;
+}
+div{
+    width: 150px;
+    height: 80px;
+    background-color:black;
+    border-radius: 40px;
+
+}
