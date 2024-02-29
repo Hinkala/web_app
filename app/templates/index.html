@@ -1,6 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <a href="/one">one</a>
-    <h1 style="font-family: Arial;color: greenyellow">HELLOS</h1>
+
+
+    <h1 class="a1">HELLO</h1>
+    {{ a1 }}
+
+    {% for i in cat_list %}
+        <div class="wrapper">
+            <div class="cat-img">
+                <img src="{{ url_for('static', filename='img/'+ i.img) }}">
+            </div>
+            <div class="cat-info">
+                <div class="cat-text">
+                    <h1>{{ i.name }}</h1>
+                    <h2>FUR:{{ i.fur }}</h2>
+                    <p>Age of cat:{{ i.age }}</p>
+                </div>
+
+                <div class="cat-btn">
+                    <button type="button">More info</button>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
 {% endblock %}
