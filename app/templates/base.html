@@ -29,6 +29,11 @@
   </div>
 
   <div>
+    {% with messages = get_flashed_messages() %}
+        {% for  message in messages %}
+                <li>{{ message }}</li>
+        {% endfor %}]
+    {% endwith %}
     <h1>Content</h1>
     {% block content %}
     {% endblock %}
