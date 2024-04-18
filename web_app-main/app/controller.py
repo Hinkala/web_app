@@ -14,7 +14,11 @@ def registrarion_get():
     form = forms.RegistrationForm()
     return render_template('registrarion.html', form = form)
 
+@app.route('/registration', methods=['POST'])
+def registration_post():
+    form = forms.RegistrationForm()
 
+    return redirect('/login')
 
 @app.route('/login', methods=['POST'])
 def login_post():
