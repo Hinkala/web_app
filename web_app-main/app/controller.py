@@ -17,7 +17,12 @@ def registrarion_get():
 @app.route('/registration', methods=['POST'])
 def registration_post():
     form = forms.RegistrationForm()
-
+    if form.validate_on_submit():
+        if repository.check_login(form.loginField.data):
+            credential = model.Credemials(None, form.passwordField,form,for)
+        else:
+            flash('Пользователь с таким логином уже существует')
+            return redirect('/registration')
     return redirect('/login')
 
 @app.route('/login', methods=['POST'])
@@ -28,9 +33,13 @@ def login_post():
         flash(form.passwordField.data)
         a = repository.check_credentials(form.loginField.data, form.passwordField.data)
         flash(a)
-        return redirect('/two')
+        if a:
+            return redirect('/two')
+        else:
+            flash('неправильный пароль')
+            return redirect('/login')
     else:
-        return redirect('/one')
+        redirect('/login')
 
 @app.route('/')
 @app.route('/index')
