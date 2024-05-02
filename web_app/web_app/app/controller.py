@@ -1,5 +1,6 @@
 from app import app, model, utils, forms, repository
 from flask import render_template, url_for, redirect, request, flash
+from flask_login import login_user, current_user
 import pickle
 import uuid
 import os
@@ -9,37 +10,22 @@ def login_get():
     form = forms.LoginForm()
     return render_template('login.html', form = form)
 
-@app.route('/registration')
-def registrarion_get():
-    form = forms.RegistrationForm()
-    return render_template('registrarion.html', form = form)
-
-@app.route('/registration', methods=['POST'])
-def registration_post():
-    form = forms.RegistrationForm()
-    if form.validate_on_submit():
-        if repository.check_login(form.loginField.data):
-            credential = model.Credemials(None, form.passwordField,form,for)
-        else:
-            flash('Пользователь с таким логином уже существует')
-            return redirect('/registration')
-    return redirect('/login')
 
 @app.route('/login', methods=['POST'])
 def login_post():
     form = forms.LoginForm()
     if form.validate_on_submit():
-        flash(form.loginField.data)
-        flash(form.passwordField.data)
-        a = repository.check_credentials(form.loginField.data, form.passwordField.data)
-        flash(a)
-        if a:
-            return redirect('/two')
+        login = form.loginField.data
+        password = form.passwordField.data
+        user = repository.authorize_user(login, password)
+        if user != None:
+            login_user(user)
+            return redirect('two')
         else:
-            flash('неправильный пароль')
+            flash('Неправильный лог.пар')
             return redirect('/login')
     else:
-        redirect('/login')
+        return redirect('/login')
 
 @app.route('/')
 @app.route('/index')
@@ -54,10 +40,30 @@ def index_get():
 def one_get():
     return render_template('one.html')
 
+@app.route('/registration')
+def registration_get():
+    form = forms.RegistrationForm()
+    return render_template('registration.html', form = form)
+
+
+@app.route("/registration", methods=['POST'])
+def registration_post():
+    form = forms.RegistrationForm()
+    if form.validate_on_submit():
+        if repository.check_login(form.loginField.data):
+            credential = model.Credentials(None, form.loginField.data, form.passwordField.data, None)
+            repository.create_credentials(credential)
+            return render_template("one.html")
+        else:
+            flash("Пользователь с таким логином уже существует")
+            return redirect('/registration')
+    return redirect('/registration')
+
 
 @app.route('/two', methods=['GET'])
 def two_get():
     form = forms.catForm()
+    print("atTWO")
     return render_template('two.html', form = form)
 
 

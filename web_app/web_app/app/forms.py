@@ -10,7 +10,9 @@ class LoginForm(FlaskForm):
     loginField = StringField('loginField', validators=[DataRequired()])
     passwordField = PasswordField('passwordField', validators=[DataRequired()])
 
-class RegistarionForm(FlaskForm):
+
+class RegistrationForm(FlaskForm):
     loginField = StringField('loginField', validators=[DataRequired()])
     passwordField = PasswordField('passwordField', validators=[DataRequired()])
     confirmPasswordField = PasswordField('confirmPasswordField', validators=[DataRequired()])
+
