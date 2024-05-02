@@ -45,7 +45,7 @@ def get_credentials_by_id(user_id):
 	cursor.execute("SELECT * FROM user where id=?;", (user_id,))
 	one = cursor.fetchone()
 	if one:
-		credentials = model.User(one[0], one[1], one[2], one[3])
+		credentials = model.User(one[0], one[1], one[2], one[3], one[4])
 		return credentials
 	else:
 		return None
@@ -62,7 +62,7 @@ def authorize_user(login, password):
 			cursor.execute("SELECT * FROM user WHERE id = ?;", (row[0],))
 			user = cursor.fetchone()
 			if user:
-				auth_user = model.User(user[0], user[1], user[2], user[3])
+				auth_user = model.User(user[0], user[1], user[2], user[3], user[4])
 				return auth_user
 			else:
 				return None

@@ -3,6 +3,7 @@
 {% block content %}
     <h1>Hello from two page</h1>
     {{ current_user.name }}
+    {{ current_user.role }}
     <form method="POST">
         {{ form.csrf_token }}
         {{ form.nameField }}

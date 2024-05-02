@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:sqlite:C:\Users\User\PycharmProjects\web_app\web_app-main\cats_db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="cats_db [2]" uuid="9dd9c400-c7c3-4908-b2c5-2538329257a5">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\User\PycharmProjects\web_app\web_app\web_app\cats_db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

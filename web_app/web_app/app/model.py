@@ -19,9 +19,11 @@ class Credentials:
 
 
 class User(UserMixin):
-    def __init__(self, id, name, surname, patronymic):
+    def __init__(self, id, name, surname, patronymic, role):
         self.id = id
         self.name = name
         self.surname = surname
         self.patronymic = patronymic
+        self.role = role
+
 

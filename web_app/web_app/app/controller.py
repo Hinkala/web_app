@@ -1,15 +1,17 @@
 from app import app, model, utils, forms, repository
 from flask import render_template, url_for, redirect, request, flash
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user
 import pickle
 import uuid
 import os
 
 @app.route('/login')
 def login_get():
-    form = forms.LoginForm()
-    return render_template('login.html', form = form)
-
+    if not current_user.is_authenticated:
+        form = forms.LoginForm()
+        return render_template('login.html', form = form)
+    else:
+        return redirect('/two')
 
 @app.route('/login', methods=['POST'])
 def login_post():
@@ -27,6 +29,13 @@ def login_post():
     else:
         return redirect('/login')
 
+@app.route('/logout')
+def logout():
+    if current_user.is_authentificated:
+        logout_user()
+        return redirect('/login')
+    else:
+        return redirect('/login')
 @app.route('/')
 @app.route('/index')
 def index_get():
@@ -42,8 +51,12 @@ def one_get():
 
 @app.route('/registration')
 def registration_get():
-    form = forms.RegistrationForm()
-    return render_template('registration.html', form = form)
+    if not current_user.is_authenticated:
+        form = forms.RegistrationForm()
+        return render_template('registration.html', form=form)
+    else:
+        return redirect('/two')
+
 
 
 @app.route("/registration", methods=['POST'])
@@ -62,10 +75,12 @@ def registration_post():
 
 @app.route('/two', methods=['GET'])
 def two_get():
-    form = forms.catForm()
-    print("atTWO")
-    return render_template('two.html', form = form)
-
+    if current_user.is_authenticated:
+        form = forms.catForm()
+        print("atTWO")
+        return render_template('two.html', form = form)
+    else:
+        return redirect('/login')
 
 @app.route("/two", methods=['POST'])
 def two_post():

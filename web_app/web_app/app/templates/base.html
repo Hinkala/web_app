@@ -22,16 +22,33 @@
             <a href="/one">One</a>
         {% endif %}
     
-        {% if 'two' in request.url_rule.rule %}
-            <a class="active" href="/two">Two</a>
-        {% else %}
-            <a href="/two">Two</a>
-        {% endif %}
 
-        {% if 'registration' in request.url_rule.rule %}
-            <a class="active" href="/registration">Registration</a>
+
+
+        {% if not current_user.is_authenticated %}
+            {% if 'registration' in request.url_rule.rule %}
+                <a class="active" href="/registration">Registration</a>
+            {% else %}
+                <a href="/registration">Registration</a>
+            {% endif %}
+
+            {% if 'login' in request.url_rule.rule %}
+                <a class="active" href="/login">Login</a>
+            {% else %}
+                <a href="/login">Login</a>
+            {% endif %}
         {% else %}
-            <a href="/registration">Registration</a>
+            {% if 'logout' in request.url_rule.rule %}
+                <a class="active" href="/logout">Logout</a>
+            {% else %}
+                <a href="/logout">Logout</a>
+            {% endif %}
+
+            {% if 'two' in request.url_rule.rule %}
+                    <a class="active" href="/two">Two</a>
+            {% else %}
+                <a href="/two">Two</a>
+            {% endif %}
         {% endif %}
     </div>
 
